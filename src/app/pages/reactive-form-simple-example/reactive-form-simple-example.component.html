@@ -47,7 +47,9 @@
         <div class="mb-3" *ngIf="simpleForm.errors">
           {{simpleForm.errors|json}}
         </div>
-        {{simpleForm.value|json}}
+        <ng-container *ngIf="formValueJSON$|async as formValueJSON">
+          {{formValueJSON}}
+        </ng-container>
         <div>
           <div class="btn-group">
             <button class="btn btn-primary" type="submit" [disabled]="simpleForm.invalid">Submit</button>

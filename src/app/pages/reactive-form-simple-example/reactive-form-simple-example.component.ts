@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, map, Observable } from 'rxjs';
 import { CountryPickerOption } from '../../components/custom-country-picker/custom-country-picker.component';
 import { IdAsyncValidator } from '../../shared/asyncValidators/idAsyncValidator';
 import { forbiddenNameValidator } from '../../shared/validators/forbiddenNameValidator';
@@ -23,6 +24,8 @@ export class ReactiveFormSimpleExampleComponent {
   public simpleForm: FormGroup<SimpleFormData>;
 
   public countries: CountryPickerOption[];
+
+  public formValueJSON$: Observable<string>;
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +65,10 @@ export class ReactiveFormSimpleExampleComponent {
     }, {
       validators: nameSameLastNameValidator,
     });
+    this.formValueJSON$ = this.simpleForm.valueChanges.pipe(
+      debounceTime(1000),
+      map((values) => JSON.stringify(values)),
+    );
   }
 
   public get tagsFormArray(): SimpleFormData['tags'] {
