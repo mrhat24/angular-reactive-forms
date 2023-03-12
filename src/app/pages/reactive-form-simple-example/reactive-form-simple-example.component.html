@@ -1,0 +1,60 @@
+<app-base-section>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+      <form [formGroup]="simpleForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="id">Id</label>
+          <input id="id" formControlName="id" type="number" class="form-control">
+          <div *ngIf="simpleForm.get('id')?.errors">
+            {{simpleForm.get('id')?.errors|json}}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="name">Name</label>
+          <input id="name" formControlName="name" type="text" class="form-control">
+          <div *ngIf="simpleForm.get('name')?.errors">
+            {{simpleForm.get('name')?.errors|json}}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="lastName">Last name</label>
+          <input id="lastName" formControlName="lastName" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label>Tags</label>
+          <div class="row mb-2" formArrayName="tags">
+            <ng-container *ngFor="let tag of tagsFormArray.controls; let i = index;">
+              <div class="col-12 mb-1">
+                <div class="row">
+                  <div class="col-8">
+                    <input type="text" class="form-control form-control-sm" [formControlName]="i">
+                  </div>
+                  <div class="col-4">
+                    <button (click)="removeTag(i)" class="btn w-100 btn-sm btn-outline-danger">remove</button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <button (click)="addTag()" class="btn btn-sm btn-outline-primary">Add tag</button>
+        </div>
+        <div class="mb-3">
+          <label>Country</label>
+          <div>
+            <app-custom-country-picker formControlName="country" [options]="countries"></app-custom-country-picker>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="simpleForm.errors">
+          {{simpleForm.errors|json}}
+        </div>
+        {{simpleForm.value|json}}
+        <div>
+          <div class="btn-group">
+            <button class="btn btn-primary" type="submit" [disabled]="simpleForm.invalid">Submit</button>
+            <button class="btn btn-outline-danger" type="button" (click)="reset()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-base-section>

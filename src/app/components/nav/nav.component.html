@@ -1,0 +1,7 @@
+<ul class="nav justify-content-center">
+  <ng-container *ngFor="let route of routes">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="route.route" [routerLinkActive]="'active'">{{route.name}}</a>
+    </li>
+  </ng-container>
+</ul>

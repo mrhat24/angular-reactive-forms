@@ -1,0 +1,9 @@
+<div class="btn-group btn-group-sm">
+  <ng-container *ngFor="let option of options">
+    <div
+      class="btn btn-sm btn-outline-primary"
+      [ngClass]="{ 'active': value === option.value }"
+      (click)="onClickCountry(option)"
+    >{{option.label}}</div>
+  </ng-container>
+</div>
