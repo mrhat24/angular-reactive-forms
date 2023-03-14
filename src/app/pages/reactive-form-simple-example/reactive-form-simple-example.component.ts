@@ -92,10 +92,7 @@ export class ReactiveFormSimpleExampleComponent {
   }
 
   public reset() {
-    for (let i = this.tagsFormArray.controls.length - 1; i >= 0; i--) {
-      this.tagsFormArray.removeAt(i);
-    }
-    this.tagsFormArray.reset();
+    this.tagsFormArray.clear();
     this.simpleForm.reset();
   }
 
